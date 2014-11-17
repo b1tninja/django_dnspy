@@ -1,5 +1,5 @@
 {% load staticfiles %}
-
+{% block header %}
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -19,7 +19,10 @@
     </ul>
 </head>
 <body>
+{% endblock %}
 {%  block content %}
 {%  endblock %}
+{% block footer %}
 </body>
 </html>
+{% endblock %}

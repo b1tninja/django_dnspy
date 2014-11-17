@@ -1,0 +1,24 @@
+    <h2>Names</h2>
+    <p>{{ object_list.count }} objects</p>
+    <table class="pure-table pure-table-bordered pure-table-striped">
+        <thead>
+            <tr>
+                <td>pk</td>
+                <td>parent</td>
+                <td>canonical_name</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for name in object_list %}
+            <tr>
+                <td><a href="{% url "name" pk=name.id  %}">{{ name.id }}</a></td>
+                {% if name.parent.id %}
+                    <td><a href="{% url "name" pk=name.parent.id  %}">{{ name.parent.id }}</a></td>
+                {% else %}
+                    <td>{{ name.parent.id }}</td>
+                {% endif %}
+                <td>{{ name.canonical_name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>

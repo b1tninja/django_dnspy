@@ -1,0 +1,32 @@
+    <h2>Records</h2>
+    <p>{{ object_list.count }} objects</p>
+    {% if object_list %}
+        <table class="pure-table pure-table-bordered pure-table-striped">
+            <thead>
+                <tr>
+                    <td>pk</td>
+                    <td>name</td>
+                    <tD>rtype</tD>
+                    <td>rclass</td>
+                    <td>ttl</td>
+                    <td>rdata</td>
+                    <td>query</td>
+                    <td>cached</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for record in object_list %}
+                <tr>
+                    <td><a href="{% url "record" pk=record.id %}">{{ record.id }}</a></td>
+                    <td><a href="{% url "name" pk=record.name.id %}">{{ record.name }}</a></td>
+                    <td>{{ record.type }}</td>
+                    <td>{{ record.rclass }}</td>
+                    <td>{{ record.ttl }}</td>
+                    <td>{{ record.rdata }}</td>
+                    <td>{{ record.query }}</td>
+                    <td>{{ record.cached }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}

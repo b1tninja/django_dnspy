@@ -4,31 +4,5 @@
 {% endcomment %}
 
 {% block content %}
-    <h2>Queries</h2>
-    <p>{{ object_list.count }} objects</p>
-    <table class="pure-table pure-table-bordered pure-table-striped">
-        <thead>
-            <tr>
-                <td>pk</td>
-                <td>question</td>
-                <td>nameserver</td>
-                <td>address</td>
-                <td>requested</td>
-                <td>completed</td>
-            </tr>
-        </thead>
-        <tbody>
-        {% for record in object_list %}
-            <tr>
-                <td>{{ record.id }}</td>
-                <td>{{ record.question.id }}</td>
-                <td>{{ record.nameserver.id }}</td>
-                <td>{{ record.address.id }}</td>
-                <td>{{ record.requested }}</td>
-                <td>{{ record.completed }}</td>
-            </tr>
-
-        {% endfor %}
-        </tbody>
-    </table>
+    {%  include "dnspy/queries.html" %}
 {% endblock %}
