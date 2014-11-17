@@ -1,9 +1,20 @@
 * {
-    border: 0 solid #000;
     margin: 0;
     padding: 0;
 }
 
+body {
+    padding: 1em;
+    font-family: sans-serif;
+    font-size: 10px;
+    font-size: 120%;
+}
+
 table {
     border-width: 1px;
+}
+
+thead {
+    font-weight: bold;
+    border-bottom-width: .1em;
 }

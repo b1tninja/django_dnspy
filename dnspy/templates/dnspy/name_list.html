@@ -2,9 +2,24 @@
 
 {% block content %}
     <h2>Names</h2>
-    <ul>
+    <p>{{ object_list.count }} objects</p>
+    <table class="pure-table pure-table-bordered pure-table-striped">
+        <thead>
+            <tr>
+                <td>pk</td>
+                <td>parent</td>
+                <td>canonical_name</td>
+            </tr>
+        </thead>
+        <tbody>
         {% for name in object_list %}
-            <li>{{ name.canonical_name }}</li>
+            <tr>
+                <td>{{ name.id }}</td>
+                <td>{{ name.parent.id }}</td>
+                <td>{{ name.canonical_name }}</td>
+            </tr>
+
         {% endfor %}
-    </ul>
+        </tbody>
+    </table>
 {% endblock %}

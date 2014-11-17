@@ -27,8 +27,10 @@ class Name(models.Model):
         while parent is not None:
             labels.append(parent.name)
             parent = parent.parent
-
         return '.'.join(labels)
+
+    def __str__(self):
+        return self.canonical_name()
 
 class Question(models.Model):
     id = models.BigIntegerField(primary_key=True)

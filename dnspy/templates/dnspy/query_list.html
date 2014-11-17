@@ -1,37 +1,31 @@
 {% extends "base.html" %}
 
 {% comment "TODO" %}
-    Decode RClass using DNSpy.enums
-    Add support for TXNID
-    Base64 encode RDATA
-    Correct TZ of cached
 {% endcomment %}
 
 {% block content %}
-    <h2>Records</h2>
+    <h2>Queries</h2>
     <p>{{ object_list.count }} objects</p>
     <table class="pure-table pure-table-bordered pure-table-striped">
         <thead>
             <tr>
                 <td>pk</td>
-                <td>name</td>
-                <td>rclass</td>
-                <td>ttl</td>
-                <td>rdata</td>
-                <td>query</td>
-                <td>cached</td>
+                <td>question</td>
+                <td>nameserver</td>
+                <td>address</td>
+                <td>requested</td>
+                <td>completed</td>
             </tr>
         </thead>
         <tbody>
         {% for record in object_list %}
             <tr>
                 <td>{{ record.id }}</td>
-                <td>{{ record.name }}</td>
-                <td>{{ record.rclass }}</td>
-                <td>{{ record.ttl }}</td>
-                <td>{{ record.rdata }}</td>
-                <td>{{ record.query }}</td>
-                <td>{{ record.cached }}</td>
+                <td>{{ record.question }}</td>
+                <td>{{ record.nameserver }}</td>
+                <td>{{ record.address }}</td>
+                <td>{{ record.requested }}</td>
+                <td>{{ record.completed }}</td>
             </tr>
 
         {% endfor %}
