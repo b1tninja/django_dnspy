@@ -12,6 +12,8 @@ from __future__ import unicode_literals
 from django.db import models
 
 
+
+
 class Name(models.Model):
     id = models.BigIntegerField(primary_key=True)
     parent = models.ForeignKey('Name', blank=True, null=True, db_column='parent', related_name='+')
@@ -42,6 +44,9 @@ class Question(models.Model):
         managed = False
         db_table = 'questions'
 
+    def __str__(self):
+        return "%s %s %s" % (self.name, self.type, self.qclass)
+
 
 class Query(models.Model):
     id = models.BigIntegerField(primary_key=True)
@@ -56,6 +61,10 @@ class Query(models.Model):
         db_table = 'queries'
         verbose_name_plural = "queries"
 
+    def __str__(self):
+        return "%d" % self.id
+
+
 class Record(models.Model):
     id = models.BigIntegerField(primary_key=True)
     name = models.ForeignKey(Name, db_column='name')
@@ -69,3 +78,9 @@ class Record(models.Model):
     class Meta:
         managed = False
         db_table = 'records'
+
+    def __str__(self):
+        return "%s %d %d %d" % (self.name,
+                                 self.type,
+                                 self.rclass,
+                                 self.ttl)

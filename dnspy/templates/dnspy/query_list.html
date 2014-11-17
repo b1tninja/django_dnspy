@@ -21,9 +21,9 @@
         {% for record in object_list %}
             <tr>
                 <td>{{ record.id }}</td>
-                <td>{{ record.question }}</td>
-                <td>{{ record.nameserver }}</td>
-                <td>{{ record.address }}</td>
+                <td>{{ record.question.id }}</td>
+                <td>{{ record.nameserver.id }}</td>
+                <td>{{ record.address.id }}</td>
                 <td>{{ record.requested }}</td>
                 <td>{{ record.completed }}</td>
             </tr>
