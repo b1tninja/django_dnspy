@@ -4,7 +4,7 @@
     <h2>Name</h2>
     <p>{{ name }}</p>
     {% if name.parent %}
-    <p>parent: <a href="{% url "name" name.parent.id %}">{{ name.parent.canonical_name }}</a></p>
+    <p>parent: <a href="{% url "name" name.parent.pk %}">{{ name.parent.canonical_name }}</a></p>
     {% endif %}
 
     {% with name.question_set.all as object_list %}

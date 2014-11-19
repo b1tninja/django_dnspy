@@ -11,11 +11,11 @@
         <tbody>
         {% for name in object_list %}
             <tr>
-                <td><a href="{% url "name" pk=name.id  %}">{{ name.id }}</a></td>
-                {% if name.parent.id %}
-                    <td><a href="{% url "name" pk=name.parent.id  %}">{{ name.parent.id }}</a></td>
+                <td><a href="{% url "name" pk=name.pk  %}">{{ name.pk }}</a></td>
+                {% if name.parent.pk %}
+                    <td><a href="{% url "name" pk=name.parent.pk  %}">{{ name.parent.pk }}</a></td>
                 {% else %}
-                    <td>{{ name.parent.id }}</td>
+                    <td>{{ name.parent.pk }}</td>
                 {% endif %}
                 <td>{{ name.canonical_name }}</td>
             </tr>

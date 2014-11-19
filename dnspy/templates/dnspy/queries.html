@@ -16,10 +16,10 @@
 
             {% for record in object_list %}
                 <tr>
-                    <td>{{ record.id }}</td>
-                    <td>{{ record.question.id }}</td>
-                    <td>{{ record.nameserver.id }}</td>
-                    <td>{{ record.address.id }}</td>
+                    <td>{{ record.pk }}</td>
+                    <td>{{ record.question.pk }}</td>
+                    <td>{{ record.nameserver.pk }}</td>
+                    <td>{{ record.address.pk }}</td>
                     <td>{{ record.requested }}</td>
                     <td>{{ record.completed }}</td>
                 </tr>

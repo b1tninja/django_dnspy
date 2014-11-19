@@ -13,8 +13,8 @@
         <tbody>
         {% for question in object_list %}
             <tr>
-                <td><a href="{% url "question" pk=question.id %}">{{ question.id }}</a></td>
-                <td><a href="{% url "name" pk=question.name.id %}">{{ question.name }}</a></td>
+                <td><a href="{% url "question" pk=question.pk %}">{{ question.pk }}</a></td>
+                <td><a href="{% url "name" pk=question.name.pk %}">{{ question.name }}</a></td>
                 <td>{{ question.type }}</td>
                 <td>{{ question.qclass }}</td>
             </tr>
