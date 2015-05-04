@@ -11,5 +11,10 @@
         {% include "dnspy/resourceheaders.html" %}
     {% endwith %}
 
+    {% with name.get_children as object_list %}
+        {% include "dnspy/names.html" %}
+    {% endwith %}
+
+
 
 {% endblock %}

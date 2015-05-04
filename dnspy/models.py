@@ -31,6 +31,7 @@ class Blob(models.Model):
 class Name(models.Model):
     id = models.BigIntegerField(primary_key=True)
     parent = models.ForeignKey('Name', blank=True, null=True, db_column='parent', related_name='+')
+
     name = models.CharField(max_length=64)
 
     class Meta:
@@ -44,6 +45,9 @@ class Name(models.Model):
             labels.append(parent.name)
             parent = parent.parent
         return '.'.join(labels)
+
+    def get_children(self):
+        return Name.objects.filter(parent=self.pk)
 
     def __str__(self):
         return self.canonical_name()
