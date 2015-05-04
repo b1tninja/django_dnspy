@@ -13,8 +13,8 @@
         <tbody>
         {% for resource_header in object_list %}
             <tr>
-                <td><a href="{% url "resource_header" pk=resource_header.pk %}">{{ resource_header.pk }}</a></td>
-                <td><a href="{% url "name" pk=resource_header.name.pk %}">{{ resource_header.name }}</a></td>
+                <td><a href="{% url "resource_header" pk=resource_header.id %}">{{ resource_header.id }}</a></td>
+                <td><a href="{% url "name" pk=resource_header.name_id %}">{{ resource_header.name }}</a></td>
                 <td>{{ resource_header.qtype }}</td>
                 <td>{{ resource_header.qclass }}</td>
             </tr>

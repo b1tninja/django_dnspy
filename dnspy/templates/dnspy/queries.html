@@ -8,20 +8,19 @@
                     <td>question</td>
                     <td>nameserver</td>
                     <td>address</td>
-                    <td>requested</td>
+                    <td>response</td>
                     <td>completed</td>
                 </tr>
             </thead>
             <tbody>
 
-            {% for record in object_list %}
+            {% for query in object_list %}
                 <tr>
-                    <td>{{ record.pk }}</td>
-                    <td>{{ record.question.pk }}</td>
-                    <td>{{ record.nameserver.pk }}</td>
-                    <td>{{ record.address.pk }}</td>
-                    <td>{{ record.requested }}</td>
-                    <td>{{ record.completed }}</td>
+                    <td>{{ query.pk }}</td>
+                    <td>{{ query.packet.resource_header }}</td>
+                    <td>{{ query.nameserver }}</td>
+                    <td>{{ query.address }}</td>
+                    <td>{{ query.response_id }}</td>
                 </tr>
             {% endfor %}
             </tbody>

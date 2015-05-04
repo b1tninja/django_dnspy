@@ -10,21 +10,17 @@
                     <td>rclass</td>
                     <td>ttl</td>
                     <td>rdata</td>
-                    <td>query</td>
-                    <td>cached</td>
                 </tr>
             </thead>
             <tbody>
-            {% for record in object_list %}
+            {% for resource_record in object_list %}
                 <tr>
-                    <td><a href="{% url "record" pk=record.pk %}">{{ record.pk }}</a></td>
-                    <td><a href="{% url "name" pk=record.name.pk %}">{{ record.name }}</a></td>
-                    <td>{{ record.type }}</td>
-                    <td>{{ record.rclass }}</td>
-                    <td>{{ record.ttl }}</td>
-                    <td>{{ record.rdata }}</td>
-                    <td>{{ record.query }}</td>
-                    <td>{{ record.cached }}</td>
+                    <td><a href="{% url "resource_record" pk=resource_record.pk %}">{{ resource_record.pk }}</a></td>
+                    <td><a href="{% url "name" pk=resource_record.resource_header.name_id %}">{{ resource_record.resource_header.name }}</a></td>
+                    <td>{{ resource_record.resource_header.type }}</td>
+                    <td>{{ resource_record.resource_header.rclass }}</td>
+                    <td>{{ resource_record.resource_header.ttl }}</td>
+                    <td>{{ resource_record.rdata }}</td>
                 </tr>
             {% endfor %}
             </tbody>
