@@ -1,10 +1,54 @@
 {% extends "base.html" %}
-
+{% load blobs %}
 {% block content %}
     <h2>Packet</h2>
     <dl>
         <dt>pk</dt>
         <dd>{{ packet.pk }}</dd>
+        <dt>source_address</dt>
+        <dd>{{ packet.source_address|ipaddr }}</dd>
+        <dt>source_port</dt>
+        <dd>{{ packet.source_port }}</dd>
+        <dt>destination_address</dt>
+        <dd>{{ packet.destination_address|ipaddr }}</dd>
+        <dt>destination_port</dt>
+        <dd>{{ packet.destination_port }}</dd>
+        <dt>id</dt>
+        <dd>{{ packet.txnid }}</dd>
+        <dt>qr</dt>
+        <dd>{{ packet.qr }}</dd>
+        <dt>opcode</dt>
+        <dd>{{ packet.opcode }}</dd>
+        <dt>aa</dt>
+        <dd>{{ packet.aa }}</dd>
+        <dt>tc</dt>
+        <dd>{{ packet.tc }}</dd>
+        <dt>rd</dt>
+        <dd>{{ packet.rd }}</dd>
+        <dt>z</dt>
+        <dd>{{ packet.z }}</dd>
+        <dt>qdcount</dt>
+        <dd>{{ packet.qdcount }}</dd>
+        <dt>ancount</dt>
+        <dd>{{ packet.ancount }}</dd>
+        <dt>nscount</dt>
+        <dd>{{ packet.nscount }}</dd>
+        <dt>arcount</dt>
+        <dd>{{ packet.arcount }}</dd>
+        {% if packet.suffix %}
+        <dt>suffix</dt>
+        <dd>{{ packet.suffix }}</dd>
+        {% endif %}
+        <dt>nscount</dt>
+        <dd>{{ packet.nscount }}</dd>
+        <dt>questionset</dt>
+        <dd>{{ packet.questionset }}</dd>
+        <dt>recordset</dt>
+        <dd>{{ packet.recordset }}</dd>
+        <dt>effective_ttl</dt>
+        <dd>{{ packet.effective_ttl }}</dd>
+        <dt>cached</dt>
+        <dd>{{ packet.cached }}</dd>
     </dl>
 
     {% with packet.packetquestion_set.all as object_list %}

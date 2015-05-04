@@ -24,7 +24,9 @@ class Blob(models.Model):
         db_table = 'blob'
 
     def __str__(self):
-        return binascii.hexlify(self.blob)
+        return binascii.hexlify(self.blob).decode('ascii')
+
+
 
 class Name(models.Model):
     id = models.BigIntegerField(primary_key=True)

@@ -1,3 +1,4 @@
+{% load blobs %}
     <h2>Queries</h2>
     <p>{{ object_list.count }} objects</p>
     {%  if object_list %}
@@ -5,7 +6,7 @@
             <thead>
                 <tr>
                     <td>packet</td>
-                    <td>queryset</td>
+                    <td>questionset</td>
                     <td>nameserver</td>
                     <td>address</td>
                     <td>response</td>
@@ -17,7 +18,7 @@
             {% for query in object_list %}
                 <tr>
                     <td><a href="{% url "packet" pk=query.pk %}">{{ query.pk }}</a></td>
-                    <td>{{ query.packet.questionset }}</td>
+                    <td>{{ query.packet.questionset|hexlify }}</td>
                 {% if query.nameserver %}
                     <td><a href="{% url "resource_record" pk=query.nameserver_id %}">{{ query.nameserver_id }}</a></td>
                 {% else %}
@@ -33,7 +34,11 @@
                 {% else %}
                     <td>&nbsp;</td>
                 {% endif %}
-                    <td>{{ query.response.recordset }}</td>
+                {% if query.response %}
+                    <td>{{ query.response.recordset|hexlify }}</td>
+                {% else %}
+                    <td>&nbsp;</td>
+                {% endif %}
                 </tr>
             {% endfor %}
             </tbody>

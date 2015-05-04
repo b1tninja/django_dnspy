@@ -19,7 +19,7 @@
                 <td><a href="{% url "packet" pk=packet_record.packet_id %}">{{ packet_record.packet }}</a></td>
                 <td><a href="{% url "resource_record" pk=packet_record.resourcerecord_id %}">{{ packet_record.resourcerecord }}</a></td>
                 <td>{{ packet_record.compressed_name }}</td>
-                <td>{{ packet_record.compressed_rdata }}</td>
+                <td>{% if packet_record.compressed_rdata %}{{ packet_record.compressed_rdata }}{% endif %}</td>
                 <td>{{ packet_record.ttl }}</td>
             </tr>
         {% endfor %}

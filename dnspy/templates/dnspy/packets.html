@@ -1,3 +1,4 @@
+    {% load blobs %}
     <h2>Packets</h2>
     <p>{{ object_list.count }} objects</p>
     {%  if object_list %}
@@ -33,9 +34,9 @@
             {% for packet in object_list %}
                 <tr>
                     <td><a href="{% url "packet" pk=packet.pk %}">{{ packet.pk }}</a></td>
-                    <td>{{ packet.source_address }}</td>
+                    <td>{{ packet.source_address|ipaddr }}</td>
                     <td>{{ packet.source_port }}</td>
-                    <td>{{ packet.destination_address }}</td>
+                    <td>{{ packet.destination_address|ipaddr }}</td>
                     <td>{{ packet.destination_port }}</td>
                     <td>{{ packet.id }}</td>
                     <td>{{ packet.qr }}</td>
@@ -50,8 +51,8 @@
                     <td>{{ packet.nscount }}</td>
                     <td>{{ packet.arcount }}</td>
                     <td>{{ packet.suffix }}</td>
-                    <td>{{ packet.questionset }}</td>
-                    <td>{{ packet.recordset }}</td>
+                    <td>{{ packet.questionset|hexlify }}</td>
+                    <td>{{ packet.recordset|hexlify }}</td>
                     <td>{{ packet.effective_ttl }}</td>
                     <td>{{ packet.cached }}</td>
                 </tr>
