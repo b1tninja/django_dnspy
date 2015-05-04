@@ -8,18 +8,25 @@ class NameDetailView(DetailView):
     context_object_name = "name"
     model = Name
 
+
 class ResourceHeaderDetailView(DetailView):
     context_object_name = "resource_header"
     model = ResourceHeader
 
-class QueryDetailView(DetailView):
-    context_object_name = "query"
-    model = Query
 
 class ResourceRecordDetailView(DetailView):
     context_object_name = "resource_record"
     model = ResourceRecord
 
+
+class PacketDetailView(DetailView):
+    context_object_name = "packet"
+    model = Packet
+
+
+class QueryDetailView(DetailView):
+    context_object_name = "query"
+    model = Query
 
 
 

@@ -1,0 +1,28 @@
+    <h2>Packet Record(s)</h2>
+    <p>{{ object_list.count }} objects</p>
+    {% if object_list %}
+    <table class="pure-table pure-table-bordered pure-table-striped">
+        <thead>
+            <tr>
+                <td>pk</td>
+                <td>packet</td>
+                <td>resource_record</td>
+                <td>compressed_name</td>
+                <td>compressed_rdata</td>
+                <td>ttl</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for packet_record in object_list %}
+            <tr>
+                <td>{{ packet_record.pk }}</td>
+                <td><a href="{% url "packet" pk=packet_record.packet_id %}">{{ packet_record.packet }}</a></td>
+                <td><a href="{% url "resource_record" pk=packet_record.resourcerecord_id %}">{{ packet_record.resourcerecord }}</a></td>
+                <td>{{ packet_record.compressed_name }}</td>
+                <td>{{ packet_record.compressed_rdata }}</td>
+                <td>{{ packet_record.ttl }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+   {% endif %}

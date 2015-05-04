@@ -2,7 +2,17 @@
 
 {% block content %}
     <h2>Resource Header</h2>
-    <p>{{ resource_header.name }} {{ resource_header.type }} {{ resource_header.qclass }}</p>
+    <dl>
+        <dt>Name</dt>
+        <dd>{{ resource_header.name }}</dd>
+        <dt>Type</dt>
+        <dd>{{ resource_header.qtype }}</dd>
+        <dt>Class</dt>
+        <dd>{{ resource_header.qclass }}</dd>
+    </dl>
 
+    {% with resource_header.resourcerecord_set.all as object_list %}
+        {% include "dnspy/resourcerecords.html" %}
+    {% endwith %}
 
 {% endblock %}

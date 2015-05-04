@@ -4,7 +4,7 @@
         <table class="pure-table pure-table-bordered pure-table-striped">
             <thead>
                 <tr>
-                    <td>pk</td>
+                    <td>packet</td>
                     <td>queryset</td>
                     <td>nameserver</td>
                     <td>address</td>
@@ -16,11 +16,15 @@
 
             {% for query in object_list %}
                 <tr>
-                    <td>{{ query.pk }}</td>
+                    <td><a href="{% url "packet" pk=query.pk %}">{{ query.pk }}</a></td>
                     <td>{{ query.packet.questionset }}</td>
                     <td>{{ query.nameserver_id }}</td>
                     <td>{{ query.address_id }}</td>
+                {% if query.response %}
+                    <td><a href="{% url "packet" pk=query.response_id %}">{{ query.response_id }}</a></td>
+                {% else %}
                     <td>{{ query.response_id }}</td>
+                {% endif %}
                     <td>{{ query.response.recordset }}</td>
                 </tr>
             {% endfor %}

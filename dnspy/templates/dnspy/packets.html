@@ -1,0 +1,61 @@
+    <h2>Packets</h2>
+    <p>{{ object_list.count }} objects</p>
+    {%  if object_list %}
+        <table class="pure-table pure-table-bordered pure-table-striped">
+            <thead>
+                <tr>
+                    <td>pk</td>
+                    <td>source_address</td>
+                    <td>source_port</td>
+                    <td>destination_address</td>
+                    <td>destination_port</td>
+                    <td>id</td>
+                    <td>qr</td>
+                    <td>opcode</td>
+                    <td>aa</td>
+                    <td>tc</td>
+                    <td>rd</td>
+                    <td>z</td>
+                    <td>rcode</td>
+                    <td>qdcount</td>
+                    <td>ancount</td>
+                    <td>nscount</td>
+                    <td>arcount</td>
+                    <td>suffix</td>
+                    <td>questionset</td>
+                    <td>recordset</td>
+                    <td>effective_ttl</td>
+                    <td>cached</td>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for packet in object_list %}
+                <tr>
+                    <td><a href="{% url "packet" pk=packet.pk %}">{{ packet.pk }}</a></td>
+                    <td>{{ packet.source_address }}</td>
+                    <td>{{ packet.source_port }}</td>
+                    <td>{{ packet.destination_address }}</td>
+                    <td>{{ packet.destination_port }}</td>
+                    <td>{{ packet.id }}</td>
+                    <td>{{ packet.qr }}</td>
+                    <td>{{ packet.opcode }}</td>
+                    <td>{{ packet.aa }}</td>
+                    <td>{{ packet.tc }}</td>
+                    <td>{{ packet.rd }}</td>
+                    <td>{{ packet.z }}</td>
+                    <td>{{ packet.rcode }}</td>
+                    <td>{{ packet.qdcount }}</td>
+                    <td>{{ packet.ancount }}</td>
+                    <td>{{ packet.nscount }}</td>
+                    <td>{{ packet.arcount }}</td>
+                    <td>{{ packet.suffix }}</td>
+                    <td>{{ packet.questionset }}</td>
+                    <td>{{ packet.recordset }}</td>
+                    <td>{{ packet.effective_ttl }}</td>
+                    <td>{{ packet.cached }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}

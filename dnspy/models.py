@@ -87,7 +87,7 @@ class ResourceHeader(models.Model):
         db_table = 'resource_header'
 
     def __str__(self):
-        return "%s %s %s" % (self.name, self.type, self.qclass)
+        return "%s %s %s" % (self.name, self.qtype, self.qclass)
 
 
 class ResourceRecord(models.Model):
@@ -117,9 +117,9 @@ class PacketQuestion(models.Model):
 class PacketRecord(models.Model):
     id = models.BigIntegerField(primary_key=True)
     packet = models.ForeignKey(Packet, db_column='packet')
-    record = models.ForeignKey(ResourceRecord, db_column='record')
-    compressed_name = models.BinaryField(blank=True, null=True)
-    compressed_rdata = models.ForeignKey(Blob, blank=True, null=True)
+    resourcerecord = models.ForeignKey(ResourceRecord, db_column='record')
+    compressed_name = models.BinaryField(blank=True, null=True, db_column='compressed_name')
+    compressed_rdata = models.ForeignKey(Blob, blank=True, null=True, db_column='compressed_rdata')
     ttl = models.PositiveIntegerField()
 
     class Meta:

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Packet</h2>
+    <dl>
+        <dt>pk</dt>
+        <dd>{{ packet.pk }}</dd>
+    </dl>
+
+    {% with packet.packetquestion_set.all as object_list %}
+        {% include "dnspy/packetquestions.html" %}
+    {% endwith %}
+
+    {% with packet.packetrecord_set.all as object_list %}
+        {% include "dnspy/packetrecords.html" %}
+    {% endwith %}
+
+
+{% endblock %}
