@@ -17,3 +17,8 @@ thead {
     font-weight: bold;
     border-bottom-width: .1em;
 }
+
+div.center {
+    text-align:center;
+    margin: 0 auto;
+}
