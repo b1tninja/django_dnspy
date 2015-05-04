@@ -8,19 +8,17 @@
                     <td>name</td>
                     <tD>rtype</tD>
                     <td>rclass</td>
-                    <td>ttl</td>
                     <td>rdata</td>
                 </tr>
             </thead>
             <tbody>
-            {% for resource_record in object_list %}
+            {% for resourcerecord in object_list %}
                 <tr>
-                    <td><a href="{% url "resource_record" pk=resource_record.pk %}">{{ resource_record.pk }}</a></td>
-                    <td><a href="{% url "name" pk=resource_record.resource_header.name_id %}">{{ resource_record.resource_header.name }}</a></td>
-                    <td>{{ resource_record.resource_header.type }}</td>
-                    <td>{{ resource_record.resource_header.rclass }}</td>
-                    <td>{{ resource_record.resource_header.ttl }}</td>
-                    <td>{{ resource_record.rdata }}</td>
+                    <td><a href="{% url "resource_record" pk=resourcerecord.pk %}">{{ resourcerecord.pk }}</a></td>
+                    <td><a href="{% url "name" pk=resourcerecord.resourceheader.name_id %}">{{ resourcerecord.resourceheader.name }}</a></td>
+                    <td>{{ resourcerecord.resourceheader.qtype }}</td>
+                    <td>{{ resourcerecord.resourceheader.qclass }}</td>
+                    <td>{{ resourcerecord.rdata }}</td>
                 </tr>
             {% endfor %}
             </tbody>

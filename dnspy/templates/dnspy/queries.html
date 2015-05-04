@@ -5,11 +5,11 @@
             <thead>
                 <tr>
                     <td>pk</td>
-                    <td>question</td>
+                    <td>queryset</td>
                     <td>nameserver</td>
                     <td>address</td>
                     <td>response</td>
-                    <td>completed</td>
+                    <td>recordset</td>
                 </tr>
             </thead>
             <tbody>
@@ -17,10 +17,11 @@
             {% for query in object_list %}
                 <tr>
                     <td>{{ query.pk }}</td>
-                    <td>{{ query.packet.resource_header }}</td>
-                    <td>{{ query.nameserver }}</td>
-                    <td>{{ query.address }}</td>
+                    <td>{{ query.packet.questionset }}</td>
+                    <td>{{ query.nameserver_id }}</td>
+                    <td>{{ query.address_id }}</td>
                     <td>{{ query.response_id }}</td>
+                    <td>{{ query.response.recordset }}</td>
                 </tr>
             {% endfor %}
             </tbody>

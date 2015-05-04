@@ -12,6 +12,20 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+import binascii
+
+
+class Blob(models.Model):
+    sha1 = models.BinaryField(primary_key=True)
+    blob = models.BinaryField()
+
+    class Meta:
+        managed = False
+        db_table = 'blob'
+
+    def __str__(self):
+        return binascii.hexlify(self.blob)
+
 class Name(models.Model):
     id = models.BigIntegerField(primary_key=True)
     parent = models.ForeignKey('Name', blank=True, null=True, db_column='parent', related_name='+')
@@ -78,33 +92,34 @@ class ResourceHeader(models.Model):
 
 class ResourceRecord(models.Model):
     id = models.BigIntegerField(primary_key=True)
-    resource_header = models.ForeignKey(ResourceHeader, db_column='header')
-    rdata = models.BinaryField(blank=True)
+    resourceheader = models.ForeignKey(ResourceHeader, db_column='header')
+    rdata = models.ForeignKey(Blob, db_column='rdata')
 
     class Meta:
         managed = False
         db_table = 'resource_record'
 
     def __str__(self):
-        return "ResourceRecord<%s: %s>" % (self.resource_header, self.rdata)
+        return "ResourceRecord<%s: %s>" % (self.resourceheader, self.rdata)
 
 
 class PacketQuestion(models.Model):
     id = models.BigIntegerField(primary_key=True)
     packet = models.ForeignKey(Packet, db_column='packet')
-    resource_header = models.ForeignKey(ResourceHeader, related_name='+')
+    resourceheader = models.ForeignKey(ResourceHeader, db_column='resource_header', related_name='+')
     compressed_name = models.BinaryField(blank=True,null=True)
 
     class Meta:
         managed = False
         db_table = 'packet_question'
 
+
 class PacketRecord(models.Model):
     id = models.BigIntegerField(primary_key=True)
     packet = models.ForeignKey(Packet, db_column='packet')
     record = models.ForeignKey(ResourceRecord, db_column='record')
     compressed_name = models.BinaryField(blank=True, null=True)
-    compressed_rdata = models.BinaryField(blank=True, null=True)
+    compressed_rdata = models.ForeignKey(Blob, blank=True, null=True)
     ttl = models.PositiveIntegerField()
 
     class Meta:
@@ -113,11 +128,11 @@ class PacketRecord(models.Model):
 
 
 class Query(models.Model):
-    packet = models.OneToOneField(Packet, db_column='packet', primary_key=True)
+    packet = models.ForeignKey(Packet, db_column='packet', primary_key=True)
     parent = models.ForeignKey('self', blank=True, null=True, db_column='parent')
     nameserver = models.ForeignKey(ResourceRecord, db_column='nameserver', related_name='+')
     address = models.ForeignKey(ResourceRecord, db_column='address', related_name='+')
-    response = models.ForeignKey(Packet, db_column='response', related_name='+')
+    response = models.ForeignKey(Packet, blank=True, null=True, db_column='response', related_name='+')
 
     class Meta:
         managed = False
@@ -126,6 +141,9 @@ class Query(models.Model):
 
 class Blacklist(models.Model):
     ip = models.BinaryField(primary_key=True)
+
     class Meta:
         managed = False
         db_table = 'blacklist'
+
+

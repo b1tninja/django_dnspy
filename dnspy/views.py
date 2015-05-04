@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import DetailView
-from dnspy.models import Name, ResourceHeader, ResourceRecord, Packet, PacketQuestion, PacketRecord, Query
+from dnspy.models import Blob, Blacklist, Query, Name, ResourceHeader, ResourceRecord, Packet, PacketQuestion, PacketRecord
 
 class NameDetailView(DetailView):
     context_object_name = "name"
