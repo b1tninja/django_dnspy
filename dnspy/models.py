@@ -13,7 +13,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 class Name(models.Model):
-    pk = models.BigIntegerField(primary_key=True)
+    id = models.BigIntegerField(primary_key=True)
     parent = models.ForeignKey('Name', blank=True, null=True, db_column='parent', related_name='+')
     name = models.CharField(max_length=64)
 
@@ -34,10 +34,12 @@ class Name(models.Model):
 
 
 class Packet(models.Model):
-    pk = models.BigIntegerField(primary_key=True)
-    source_address = models.ForeignKey('SourceAddress', db_column='source_address', blank=True, null=True)
-    source_port = models.IntegerField()
-    id = models.IntegerField()
+    id = models.BigIntegerField(primary_key=True)
+    source_address = models.BinaryField(blank=True, null=True, db_column='source')
+    source_port = models.PositiveSmallIntegerField()
+    destination_address = models.BinaryField(blank=True, null=True, db_column='destination')
+    destination_port = models.PositiveSmallIntegerField()
+    txnid = models.IntegerField()
     qr = models.BooleanField()
     opcode = models.PositiveSmallIntegerField()
     aa = models.BooleanField()
@@ -49,6 +51,10 @@ class Packet(models.Model):
     ancount = models.PositiveIntegerField()
     nscount = models.PositiveIntegerField()
     arcount = models.PositiveIntegerField()
+    suffix = models.BinaryField(blank=True, null=True)
+    questionset = models.BinaryField()
+    recordset = models.BinaryField()
+    effective_ttl = models.PositiveIntegerField()
     cached = models.DateTimeField(blank=True, null=True)
 
     class Meta:
@@ -56,70 +62,70 @@ class Packet(models.Model):
         db_table = 'packet'
 
 
+class ResourceHeader(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    name = models.ForeignKey(Name, db_column='name')
+    qtype = models.IntegerField(db_column='type')
+    qclass = models.IntegerField(db_column='class')
+
+    class Meta:
+        managed = False
+        db_table = 'resource_header'
+
+    def __str__(self):
+        return "%s %s %s" % (self.name, self.type, self.qclass)
+
+
+class ResourceRecord(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    resource_header = models.ForeignKey(ResourceHeader, db_column='header')
+    rdata = models.BinaryField(blank=True)
+
+    class Meta:
+        managed = False
+        db_table = 'resource_record'
+
+    def __str__(self):
+        return "ResourceRecord<%s: %s>" % (self.resource_header, self.rdata)
+
+
+class PacketQuestion(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    packet = models.ForeignKey(Packet, db_column='packet')
+    resource_header = models.ForeignKey(ResourceHeader, related_name='+')
+    compressed_name = models.BinaryField(blank=True,null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'packet_question'
+
+class PacketRecord(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    packet = models.ForeignKey(Packet, db_column='packet')
+    record = models.ForeignKey(ResourceRecord, db_column='record')
+    compressed_name = models.BinaryField(blank=True, null=True)
+    compressed_rdata = models.BinaryField(blank=True, null=True)
+    ttl = models.PositiveIntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'packet_record'
+
+
 class Query(models.Model):
-    pk = models.BigIntegerField(primary_key=True)
-    question = models.ForeignKey('Question', db_column='question')
-    nameserver = models.ForeignKey('Record', db_column='nameserver')
-    address = models.ForeignKey('Record', db_column='address')
-    requested = models.DateTimeField()
-    completed = models.DateTimeField(blank=True, null=True)
+    packet = models.OneToOneField(Packet, db_column='packet', primary_key=True)
+    parent = models.ForeignKey('self', blank=True, null=True, db_column='parent')
+    nameserver = models.ForeignKey(ResourceRecord, db_column='nameserver', related_name='+')
+    address = models.ForeignKey(ResourceRecord, db_column='address', related_name='+')
+    response = models.ForeignKey(Packet, db_column='response', related_name='+')
 
     class Meta:
         managed = False
         db_table = 'query'
 
 
-class Question(models.Model):
-    pk = models.BigIntegerField(primary_key=True)
-    name = models.ForeignKey(Name, db_column='name')
-    qtype = models.IntegerField()
-    qclass = models.IntegerField()
-
+class Blacklist(models.Model):
+    ip = models.BinaryField(primary_key=True)
     class Meta:
         managed = False
-        db_table = 'question'
-
-    def __str__(self):
-        return "%s %s %s" % (self.name, self.type, self.qclass)
-
-class Record(models.Model):
-    pk = models.BigIntegerField(primary_key=True)
-    name = models.ForeignKey(Name, db_column='name')
-    rtype = models.IntegerField()
-    rclass = models.IntegerField()
-    ttl = models.IntegerField()
-    rdata = models.TextField(blank=True)
-    packet = models.ForeignKey(Packet, db_column='packet', blank=True, null=True)
-    section = models.CharField(max_length=2) # ENUM ( qd, an, ns, ar )
-    cached = models.DateTimeField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'record'
-
-    def __str__(self):
-        return "%s %d %d %d" % (self.name,
-                                 self.type,
-                                 self.rclass,
-                                 self.ttl)
-
-
-class Response(models.Model):
-    pk = models.BigIntegerField(primary_key=True)
-    query = models.ForeignKey(Query, db_column='query')
-    packet = models.ForeignKey(Packet, db_column='packet')
-
-    class Meta:
-        managed = False
-        db_table = 'response'
-
-
-class SourceAddress(models.Model):
-    pk = models.BigIntegerField(primary_key=True)
-    type = models.CharField(max_length=1) # ENUM, ( 4, 6 )
-    ip = models.GenericIPAddressField() # almost want to use a packed binary field...
-    blacklisted = models.BooleanField()
-
-    class Meta:
-        managed = False
-        db_table = 'source_address'
+        db_table = 'blacklist'

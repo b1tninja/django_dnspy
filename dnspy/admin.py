@@ -1,9 +1,9 @@
 from django.contrib import admin
 
 # Register your models here.
-from dnspy.models import Name, Record, Query, Question
+from dnspy.models import Name, ResourceHeader, ResourceRecord, Packet, PacketQuestion, PacketRecord, Blacklist, Query
 
 admin.site.register(Name)
-admin.site.register(Record)
-admin.site.register(Question)
+admin.site.register(ResourceHeader)
+admin.site.register(ResourceRecord)
 admin.site.register(Query)

@@ -1,4 +1,4 @@
-    <h2>Questions</h2>
+    <h2>Resource Headers</h2>
     <p>{{ object_list.count }} objects</p>
     {% if object_list %}
     <table class="pure-table pure-table-bordered pure-table-striped">
@@ -11,12 +11,12 @@
             </tr>
         </thead>
         <tbody>
-        {% for question in object_list %}
+        {% for resource_header in object_list %}
             <tr>
-                <td><a href="{% url "question" pk=question.pk %}">{{ question.pk }}</a></td>
-                <td><a href="{% url "name" pk=question.name.pk %}">{{ question.name }}</a></td>
-                <td>{{ question.type }}</td>
-                <td>{{ question.qclass }}</td>
+                <td><a href="{% url "resource_header" pk=resource_header.pk %}">{{ resource_header.pk }}</a></td>
+                <td><a href="{% url "name" pk=resource_header.name.pk %}">{{ resource_header.name }}</a></td>
+                <td>{{ resource_header.qtype }}</td>
+                <td>{{ resource_header.qclass }}</td>
             </tr>
         {% endfor %}
         </tbody>

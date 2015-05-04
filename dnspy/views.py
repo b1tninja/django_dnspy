@@ -2,23 +2,23 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import DetailView
-from dnspy.models import Name, Question, Query, Record
+from dnspy.models import Name, ResourceHeader, ResourceRecord, Packet, PacketQuestion, PacketRecord, Query
 
 class NameDetailView(DetailView):
     context_object_name = "name"
     model = Name
 
-class QuestionDetailView(DetailView):
-    context_object_name = "question"
-    model = Question
+class ResourceHeaderDetailView(DetailView):
+    context_object_name = "resource_header"
+    model = ResourceHeader
 
 class QueryDetailView(DetailView):
     context_object_name = "query"
     model = Query
 
-class RecordDetailView(DetailView):
-    context_object_name = "record"
-    model = Record
+class ResourceRecordDetailView(DetailView):
+    context_object_name = "resource_record"
+    model = ResourceRecord
 
 
 
