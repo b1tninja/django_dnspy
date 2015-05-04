@@ -4,7 +4,7 @@
     <h2>Resource Header</h2>
     <dl>
         <dt>Name</dt>
-        <dd>{{ resource_header.name }}</dd>
+        <dd><a href="{% url "name" pk=resource_header.name_id %}">{{ resource_header.name }}</a></dd>
         <dt>Type</dt>
         <dd>{{ resource_header.qtype }}</dd>
         <dt>Class</dt>
