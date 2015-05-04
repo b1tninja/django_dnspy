@@ -18,12 +18,20 @@
                 <tr>
                     <td><a href="{% url "packet" pk=query.pk %}">{{ query.pk }}</a></td>
                     <td>{{ query.packet.questionset }}</td>
-                    <td>{{ query.nameserver_id }}</td>
-                    <td>{{ query.address_id }}</td>
+                {% if query.nameserver %}
+                    <td><a href="{% url "resource_record" pk=query.nameserver_id %}">{{ query.nameserver_id }}</a></td>
+                {% else %}
+                    <td>&nbsp;</td>
+                {% endif %}
+                {% if query.address %}
+                    <td><a href="{% url "resource_record" pk=query.address_id %}">{{ query.address_id }}</a></td>
+                {% else %}
+                    <td>&nbsp;</td>
+                {% endif %}
                 {% if query.response %}
                     <td><a href="{% url "packet" pk=query.response_id %}">{{ query.response_id }}</a></td>
                 {% else %}
-                    <td>{{ query.response_id }}</td>
+                    <td>&nbsp;</td>
                 {% endif %}
                     <td>{{ query.response.recordset }}</td>
                 </tr>

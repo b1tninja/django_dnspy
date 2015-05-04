@@ -2,6 +2,17 @@
 
 {% block content %}
     <h2>Record</h2>
-    <p>{{ record.name }}</p>
+    <dl>
+        <dt>pk</dt>
+        <dd>{{ resource_record.pk }}</dd>
+        <dt>header</dt>
+        <dd><a href="{% url "resource_header" pk=resource_record.resourceheader_id %}">{{ resource_record.resourceheader }}</a></dd>
+        <dt>rdata</dt>
+        <dd>{{ resource_record.rdata }}</dd>
+    </dl>
+
+    {% with resource_record.packetrecord_set.all as object_list %}
+        {% include "dnspy/packetrecords.html" %}
+    {% endwith %}
 
 {% endblock %}
