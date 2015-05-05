@@ -5,7 +5,7 @@
         <thead>
             <tr>
                 <td>pk</td>
-                <td>packet</td>
+                <!--<td>packet</td>-->
                 <td>resource_header</td>
                 <td>compressed_name</td>
             </tr>
@@ -14,7 +14,7 @@
         {% for packet_question in object_list %}
             <tr>
                 <td>{{ packet_question.pk }}</td>
-                <td><a href="{% url "packet" pk=packet_question.packet_id %}">{{ packet_question.packet }}</a></td>
+                <!--<td><a href="{% url "packet" pk=packet_question.packet_id %}">{{ packet_question.packet }}</a></td>-->
                 <td><a href="{% url "resource_header" pk=packet_question.resourceheader_id %}">{{ packet_question.resourceheader }}</a></td>
                 <td>{{ packet_question.compressed_name }}</td>
             </tr>

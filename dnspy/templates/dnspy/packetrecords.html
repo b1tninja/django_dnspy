@@ -5,22 +5,22 @@
         <thead>
             <tr>
                 <td>pk</td>
-                <td>packet</td>
+                <!--<td>packet</td>-->
+                <td>ttl</td>
                 <td>resource_record</td>
                 <td>compressed_name</td>
                 <td>compressed_rdata</td>
-                <td>ttl</td>
             </tr>
         </thead>
         <tbody>
         {% for packet_record in object_list %}
             <tr>
                 <td>{{ packet_record.pk }}</td>
-                <td><a href="{% url "packet" pk=packet_record.packet_id %}">{{ packet_record.packet }}</a></td>
+                <!--<td><a href="{% url "packet" pk=packet_record.packet_id %}">{{ packet_record.packet }}</a></td>-->
+                <td>{{ packet_record.ttl }}</td>
                 <td><a href="{% url "resource_record" pk=packet_record.resourcerecord_id %}">{{ packet_record.resourcerecord }}</a></td>
                 <td>{{ packet_record.compressed_name }}</td>
                 <td>{% if packet_record.compressed_rdata %}{{ packet_record.compressed_rdata }}{% endif %}</td>
-                <td>{{ packet_record.ttl }}</td>
             </tr>
         {% endfor %}
         </tbody>
