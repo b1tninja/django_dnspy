@@ -1,3 +1,4 @@
+{% load dnspy %}
     <h2>Resource Records</h2>
     <p>{{ object_list.count }} objects</p>
     {% if object_list %}
@@ -16,8 +17,8 @@
                 <tr>
                     <td><a href="{% url "resource_record" pk=resourcerecord.pk %}">{{ resourcerecord.pk }}</a></td>
                     <td><a href="{% url "name" pk=resourcerecord.resourceheader.name_id %}">{{ resourcerecord.resourceheader.name }}</a></td>
-                    <td>{{ resourcerecord.resourceheader.qtype }}</td>
-                    <td>{{ resourcerecord.resourceheader.qclass }}</td>
+                    <td>{{ resourcerecord.resourceheader.qtype|rtype }}</td>
+                    <td>{{ resourcerecord.resourceheader.qclass|rclass }}</td>
                     <td>{{ resourcerecord.rdata }}</td>
                 </tr>
             {% endfor %}
