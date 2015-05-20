@@ -1,14 +1,14 @@
 {% extends "base.html" %}
-
+{% load dnspy %}
 {% block content %}
     <h2>Resource Header</h2>
     <dl>
         <dt>Name</dt>
         <dd><a href="{% url "name" pk=resource_header.name_id %}">{{ resource_header.name }}</a></dd>
         <dt>Type</dt>
-        <dd>{{ resource_header.qtype }}</dd>
+        <dd>{{ resource_header.qtype|qtype }}</dd>
         <dt>Class</dt>
-        <dd>{{ resource_header.qclass }}</dd>
+        <dd>{{ resource_header.qclass|qclass }}</dd>
     </dl>
 
     {% with resource_header.resourcerecord_set.all as object_list %}
