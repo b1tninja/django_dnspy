@@ -7,3 +7,8 @@ admin.site.register(Name)
 admin.site.register(ResourceHeader)
 admin.site.register(ResourceRecord)
 admin.site.register(Query)
+admin.site.register(Packet)
+admin.site.register(PacketQuestion)
+admin.site.register(PacketRecord)
+admin.site.register(Blacklist)
+
