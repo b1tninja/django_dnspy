@@ -32,3 +32,4 @@ def qclass(x):
         return str(DnsQClass(x))
     except ValueError:
         return "DnsQClass.%d" % x
+

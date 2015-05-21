@@ -9,7 +9,7 @@
                     <td>name</td>
                     <tD>rtype</tD>
                     <td>rclass</td>
-                    <td>rdata</td>
+                    <td>repr_rdata</td>
                 </tr>
             </thead>
             <tbody>
@@ -19,7 +19,7 @@
                     <td><a href="{% url "name" pk=resourcerecord.resourceheader.name_id %}">{{ resourcerecord.resourceheader.name }}</a></td>
                     <td>{{ resourcerecord.resourceheader.qtype|rtype }}</td>
                     <td>{{ resourcerecord.resourceheader.qclass|rclass }}</td>
-                    <td>{{ resourcerecord.rdata }}</td>
+                    <td>{{ resourcerecord.repr_rdata }}</td>
                 </tr>
             {% endfor %}
             </tbody>

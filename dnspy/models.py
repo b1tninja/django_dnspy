@@ -14,6 +14,8 @@ from django.db import models
 
 import binascii
 
+from DNSpy.dns_packet import RData
+
 
 class Blob(models.Model):
     sha1 = models.BinaryField(primary_key=True)
@@ -105,8 +107,11 @@ class ResourceRecord(models.Model):
         managed = False
         db_table = 'resource_record'
 
+    def repr_rdata(self):
+        return repr(RData.get_handler(self.resourceheader.qtype).parse(self.rdata.blob))
+
     def __str__(self):
-        return "ResourceRecord<%s: %s>" % (self.resourceheader, self.rdata)
+        return "ResourceRecord<%s: %s>" % (self.resourceheader, self.repr_rdata())
 
 
 class PacketQuestion(models.Model):
